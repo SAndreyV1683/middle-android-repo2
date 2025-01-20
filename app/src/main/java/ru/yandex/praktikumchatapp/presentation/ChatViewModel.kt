@@ -21,8 +21,7 @@ class ChatViewModel(
         viewModelScope.launch {
             while (isWithReplies) {
                 repository.getReplyMessage().collect { response ->
-                    val currentMessages = _messages.value
-                    _messages.value = currentMessages + Message.OtherMessage(response)
+                    _messages.update { it + Message.OtherMessage(response) }
                 }
             }
         }
